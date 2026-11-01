@@ -405,7 +405,7 @@ export default function BodyMapTab() {
               </ul>
               {/* Disclaimer + Start Over */}
               <p className="text-[11px] text-rose-600 border-t border-rose-200 pt-3">
-                This is an automated safety check, not a medical diagnosis. Always follow emergency services' instructions.
+                This is an automated safety check, not a medical diagnosis. Always follow emergency services&apos; instructions.
               </p>
               <button
                 onClick={handleReset}
@@ -524,7 +524,7 @@ export default function BodyMapTab() {
               {triageResult.followUpQuestion && (
                 <div className="bg-white rounded-xl p-3 border border-slate-200 text-sm text-slate-700">
                   <span className="font-semibold">Ask your doctor: </span>
-                  <span className="italic">"{triageResult.followUpQuestion}"</span>
+                  <span className="italic">&quot;{triageResult.followUpQuestion}&quot;</span>
                 </div>
               )}
 
