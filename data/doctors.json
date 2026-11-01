@@ -1,0 +1,98 @@
+[
+  {
+    "name": "Dr. Arjun Mehta",
+    "specialty": "General Physician",
+    "clinic": "Mehta Family Clinic",
+    "area": "Koramangala, Bangalore",
+    "phone": "Sample - not real",
+    "distance": "0.8 km"
+  },
+  {
+    "name": "Dr. Priya Nair",
+    "specialty": "General Physician",
+    "clinic": "Nair Wellness Centre",
+    "area": "Indiranagar, Bangalore",
+    "phone": "Sample - not real",
+    "distance": "1.4 km"
+  },
+  {
+    "name": "Dr. Suresh Pillai",
+    "specialty": "ENT Specialist",
+    "clinic": "Pillai ENT & Audiology",
+    "area": "HSR Layout, Bangalore",
+    "phone": "Sample - not real",
+    "distance": "2.1 km"
+  },
+  {
+    "name": "Dr. Kavitha Reddy",
+    "specialty": "Cardiologist",
+    "clinic": "Reddy Heart Institute",
+    "area": "Jayanagar, Bangalore",
+    "phone": "Sample - not real",
+    "distance": "3.5 km"
+  },
+  {
+    "name": "Dr. Ramesh Gupta",
+    "specialty": "Gastroenterologist",
+    "clinic": "Gupta Digestive Health",
+    "area": "Whitefield, Bangalore",
+    "phone": "Sample - not real",
+    "distance": "4.2 km"
+  },
+  {
+    "name": "Dr. Ananya Sharma",
+    "specialty": "Neurologist",
+    "clinic": "Sharma Neuro Clinic",
+    "area": "Rajajinagar, Bangalore",
+    "phone": "Sample - not real",
+    "distance": "2.9 km"
+  },
+  {
+    "name": "Dr. Vikram Bose",
+    "specialty": "Orthopedic",
+    "clinic": "Bose Bone & Joint Centre",
+    "area": "BTM Layout, Bangalore",
+    "phone": "Sample - not real",
+    "distance": "1.7 km"
+  },
+  {
+    "name": "Dr. Meera Iyer",
+    "specialty": "Dermatologist",
+    "clinic": "Iyer Skin & Laser Clinic",
+    "area": "Malleshwaram, Bangalore",
+    "phone": "Sample - not real",
+    "distance": "3.0 km"
+  },
+  {
+    "name": "Dr. Deepak Joshi",
+    "specialty": "Dentist",
+    "clinic": "Joshi Dental Studio",
+    "area": "Marathahalli, Bangalore",
+    "phone": "Sample - not real",
+    "distance": "2.6 km"
+  },
+  {
+    "name": "Dr. Lakshmi Venkat",
+    "specialty": "ENT Specialist",
+    "clinic": "Venkat ENT Hospital",
+    "area": "Yelahanka, Bangalore",
+    "phone": "Sample - not real",
+    "distance": "5.1 km"
+  },
+  {
+    "name": "Dr. Harish Rao",
+    "specialty": "Orthopedic",
+    "clinic": "Rao Sports & Spine Clinic",
+    "area": "Electronic City, Bangalore",
+    "phone": "Sample - not real",
+    "distance": "6.3 km"
+  },
+  {
+    "name": "Dr. Sneha Kulkarni",
+    "specialty": "Gastroenterologist",
+    "clinic": "Kulkarni GI Care",
+    "area": "JP Nagar, Bangalore",
+    "phone": "Sample - not real",
+    "distance": "1.2 km"
+  }
+]

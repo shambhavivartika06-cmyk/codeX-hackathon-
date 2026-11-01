@@ -11,6 +11,7 @@ import {
   BookOpenCheck,
   UserCheck,
   ScanText,
+  PersonStanding,
 } from "lucide-react";
 
 export interface NavItem {
@@ -23,6 +24,7 @@ export interface NavItem {
 export const NAV_ITEMS: NavItem[] = [
   { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
   { id: "snap", label: "Snap & Structure", icon: ScanText, badge: "AI OCR" },
+  { id: "bodymap", label: "Body Map", icon: PersonStanding },
   { id: "checkin", label: "Daily Check-in", icon: CalendarCheck },
   { id: "medications", label: "Medications", icon: Pill },
   { id: "assistant", label: "AI Assistant", icon: BotMessageSquare, badge: "Gemini" },

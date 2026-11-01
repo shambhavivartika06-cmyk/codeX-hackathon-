@@ -52,6 +52,47 @@ export interface SymptomInfo {
   redFlags: string[]; // Urgent emergency flags
 }
 
+// ============ TRIAGE TYPES ============
+
+/** A sample doctor entry from data/doctors.json */
+export interface Doctor {
+  name: string;
+  specialty: string;
+  clinic: string;
+  area: string;
+  phone: string;      // always "Sample - not real"
+  distance: string;   // e.g. "1.2 km"
+}
+
+/** Patient context sent from the browser to the triage API */
+export interface TriageRecord {
+  allergies: string[];       // e.g. ["penicillin", "pollen"]
+  medications: string[];     // e.g. ["Metformin 500mg", "Aspirin"]
+  recentVisits: string[];    // e.g. ["GP – Oct 2026"]
+}
+
+/** What the browser sends to POST /api/triage */
+export interface TriageRequest {
+  area: string;              // body zone label, e.g. "Chest"
+  symptoms: string;          // free-text description
+  pain: number;              // 1–10
+  duration: string;          // e.g. "1-2 days"
+  record: TriageRecord;      // pulled from localStorage
+}
+
+/** What the API returns (Gemini fills this as JSON) */
+export interface TriageResult {
+  emergency: boolean;
+  emergencyReason?: string;           // only set when emergency = true
+  possibleCauses: string[];           // layman-friendly list
+  urgency: "home" | "soon" | "now";  // home-care / see soon / go now
+  immediateSteps: string[];           // actionable self-care tips
+  doctorType: string;                 // e.g. "General Practitioner"
+  confidence: "low" | "medium" | "high";
+  personalNote: string;               // references allergies / meds
+  followUpQuestion: string;           // one question to ask the doctor
+}
+
 // ============ SNAP & STRUCTURE TYPES ============
 export type ConfidenceLevel = "clear" | "ambiguous" | "missing";
 

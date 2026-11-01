@@ -1,4 +1,4 @@
-import { UserProfile, Medication, WellnessCheckIn, SavedExtractedRecord } from "./types";
+import { UserProfile, Medication, WellnessCheckIn, SavedExtractedRecord, TriageRecord } from "./types";
 import { DEMO_PROFILE, INITIAL_MEDICATIONS, INITIAL_CHECKINS } from "../data/mockData";
 
 const PROFILE_KEY = "carebuddy_profile_v1";
@@ -142,6 +142,29 @@ export function deleteExtractedDoc(id: string): SavedExtractedRecord[] {
     console.error("Error deleting extracted doc from localStorage:", err);
     return [];
   }
+}
+
+// ============ TRIAGE RECORD ============
+/**
+ * Reads allergies, current medications, and recent visits from localStorage
+ * and returns them as a TriageRecord for the AI triage API.
+ * All fields fall back to empty arrays if nothing is stored yet.
+ */
+export function getTriageRecord(): TriageRecord {
+  // Allergies come from the saved profile (comma-separated string → array)
+  const profile = getSavedProfile();
+  const allergies = profile.allergies
+    ? profile.allergies.split(",").map((s) => s.trim()).filter(Boolean)
+    : [];
+
+  // Medications: combine name + dosage for readability
+  const meds = getSavedMedications();
+  const medications = meds.map((m) => `${m.name} ${m.dosage}`.trim());
+
+  // Recent visits: not stored separately yet → placeholder empty array
+  const recentVisits: string[] = [];
+
+  return { allergies, medications, recentVisits };
 }
 
 // ============ RESET DEMO DATA ============
