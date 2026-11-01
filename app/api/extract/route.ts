@@ -3,6 +3,8 @@ import { GoogleGenerativeAI } from "@google/generative-ai";
 import { ExtractedDocumentData } from "@/lib/types";
 import { GEMINI_MODEL_CASCADE } from "@/lib/gemini";
 
+export const maxDuration = 30;
+
 // Deterministic local fallbacks for sample documents
 const SAMPLE_EXTRACTIONS: Record<string, ExtractedDocumentData> = {
   "sample-rx-1": {
@@ -236,8 +238,14 @@ export async function POST(req: NextRequest) {
       let extractedJsonString: string | null = null;
       let lastError: any = null;
 
-      // Try model cascade with vision support and fast 5.5s timeout
-      for (const modelName of GEMINI_MODEL_CASCADE) {
+      // Order: try primary model, retry primary model once, then fallback model (each 25000ms timeout)
+      const primaryModel = GEMINI_MODEL_CASCADE[0];
+      const fallbackModel = GEMINI_MODEL_CASCADE[1] || primaryModel;
+      const modelAttempts = [primaryModel, primaryModel, fallbackModel];
+
+      for (let i = 0; i < modelAttempts.length; i++) {
+        const modelName = modelAttempts[i];
+        const attemptLabel = i === 0 ? "primary" : i === 1 ? "primary retry" : "fallback";
         try {
           const model = genAI.getGenerativeModel({
             model: modelName,
@@ -257,7 +265,7 @@ export async function POST(req: NextRequest) {
               },
             ]),
             new Promise<never>((_, reject) =>
-              setTimeout(() => reject(new Error(`Timeout after 5500ms on ${modelName}`)), 5500)
+              setTimeout(() => reject(new Error(`Timeout after 25000ms on ${modelName}`)), 25000)
             ),
           ]);
 
@@ -268,7 +276,7 @@ export async function POST(req: NextRequest) {
             break;
           }
         } catch (mErr: any) {
-          console.warn(`[Snap & Structure] Vision model ${modelName} error: ${mErr?.message || mErr}. Trying next...`);
+          console.error(`[Snap & Structure] Vision model ${modelName} (${attemptLabel}) error:`, mErr?.message || mErr);
           lastError = mErr;
         }
       }
@@ -293,7 +301,7 @@ export async function POST(req: NextRequest) {
         source: "gemini_multimodal_vision",
       });
     } catch (aiErr: any) {
-      console.warn("Gemini vision extraction failed, returning structured fallback:", aiErr?.message || aiErr);
+      console.error("Gemini vision extraction failed, returning structured fallback:", aiErr?.message || aiErr);
 
       // Return graceful fallback so user can still review and edit manually
       return NextResponse.json({
