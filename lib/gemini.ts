@@ -14,21 +14,20 @@ CRITICAL MEDICAL SAFETY RULES:
 4. Keep explanations approachable, compassionate, and free of unnecessary medical jargon.
 5. Always remind the user that this guidance is informational and they should consult their personal healthcare provider for individualized care.`;
 
+// Ultra-fast model cascade: Single fastest tier with immediate local fallback
 export const GEMINI_MODEL_CASCADE = [
-  "gemini-flash-latest",
+  "gemini-3.1-flash-lite",
   "gemini-3.8-flash",
-  "gemini-3.5-flash",
-  "gemini-pro-latest",
 ];
 
 /**
- * Attempts generation across the model cascade.
- * If one model experiences temporary 503 capacity spikes, seamlessly falls back to the next.
+ * Attempts generation with a lean 4.5s per-model timeout so users aren't left waiting
  */
 export async function generateContentWithCascade(
   genAI: GoogleGenerativeAI,
   prompt: string,
-  systemInstruction?: string
+  systemInstruction?: string,
+  timeoutMs: number = 4500
 ): Promise<string> {
   let lastError: any = null;
 
@@ -38,12 +37,19 @@ export async function generateContentWithCascade(
         model: modelName,
         ...(systemInstruction ? { systemInstruction } : {}),
       });
-      const result = await model.generateContent(prompt);
+
+      const result = await Promise.race([
+        model.generateContent(prompt),
+        new Promise<never>((_, reject) =>
+          setTimeout(() => reject(new Error(`Timeout after ${timeoutMs}ms on ${modelName}`)), timeoutMs)
+        ),
+      ]);
+
       const response = await result.response;
       const text = response.text();
       if (text) return text;
     } catch (err: any) {
-      console.warn(`[CareBuddy AI Cascade] Model ${modelName} notice: ${err?.message || err}. Trying next tier...`);
+      console.warn(`[CareBuddy AI Cascade] Model ${modelName} notice: ${err?.message || err}.`);
       lastError = err;
     }
   }
@@ -107,7 +113,7 @@ export function getLocalFallbackChatResponse(
     contextAdvice = `• **General Wellness**: Stay well-hydrated, aim for nutritious meals, and ensure 7-8 hours of restful sleep.\n• **Track your patterns**: Use the CareBuddy Check-in tab to record daily energy, discomfort, and sleep.\n• **Questions for your Doctor**: Note down when this started, what makes it better/worse, and any medications you are currently taking.`;
   }
 
-  const responseText = `**[Local Knowledge Mode - Offline Demo]**\n\n*Note: To enable live AI intelligence, add your \`GEMINI_API_KEY\` to \`.env.local\`.*\n\nHere is general wellness guidance regarding your query:\n\n${contextAdvice}\n\n**Next Steps to discuss with your healthcare provider:**\n1. "Are my current symptoms consistent with normal fatigue or an underlying issue?"\n2. "Are there any laboratory screenings (like iron, vitamin D, or thyroid) that might be helpful?"\n\n*Disclaimer: CareBuddy is an educational guide and does not provide formal medical diagnosis or prescriptions.*`;
+  const responseText = `**[Local Knowledge Mode - High Speed]**\n\nHere is general wellness guidance regarding your query:\n\n${contextAdvice}\n\n**Next Steps to discuss with your healthcare provider:**\n1. "Are my current symptoms consistent with normal fatigue or an underlying issue?"\n2. "Are there any laboratory screenings (like iron, vitamin D, or thyroid) that might be helpful?"\n\n*Disclaimer: CareBuddy is an educational guide and does not provide formal medical diagnosis or prescriptions.*`;
 
   return { responseText, isEmergency: false };
 }

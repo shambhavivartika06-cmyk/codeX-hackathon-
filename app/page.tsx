@@ -12,6 +12,7 @@ import SymptomExplorerTab from "@/components/SymptomExplorerTab";
 import DoctorSummaryTab from "@/components/DoctorSummaryTab";
 import ExplainerTab from "@/components/ExplainerTab";
 import ProfileTab from "@/components/ProfileTab";
+import SnapStructureTab from "@/components/SnapStructureTab";
 import { UserProfile, WellnessCheckIn, Medication } from "@/lib/types";
 import { DEMO_PROFILE, INITIAL_MEDICATIONS, INITIAL_CHECKINS } from "@/data/mockData";
 import {
@@ -171,6 +172,14 @@ export default function Home() {
                   medications={medications}
                   setActiveTab={setActiveTab}
                   onToggleMedication={handleToggleMedication}
+                />
+              )}
+
+              {activeTab === "snap" && (
+                <SnapStructureTab
+                  onAddExtractedMedication={handleAddMedication}
+                  onAttachToDoctorSummary={handleSelectSymptomForSummary}
+                  setActiveTab={setActiveTab}
                 />
               )}
 

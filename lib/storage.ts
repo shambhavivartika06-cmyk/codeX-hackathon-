@@ -1,9 +1,10 @@
-import { UserProfile, Medication, WellnessCheckIn } from "./types";
+import { UserProfile, Medication, WellnessCheckIn, SavedExtractedRecord } from "./types";
 import { DEMO_PROFILE, INITIAL_MEDICATIONS, INITIAL_CHECKINS } from "../data/mockData";
 
 const PROFILE_KEY = "carebuddy_profile_v1";
 const MEDICATIONS_KEY = "carebuddy_medications_v1";
 const CHECKINS_KEY = "carebuddy_checkins_v1";
+const EXTRACTED_DOCS_KEY = "carebuddy_extracted_docs_v1";
 
 const isBrowser = typeof window !== "undefined";
 
@@ -103,6 +104,46 @@ export function deleteCheckIn(id: string): WellnessCheckIn[] {
   return updated;
 }
 
+// ============ EXTRACTED DOCUMENTS STORAGE ============
+export function getSavedExtractedDocs(): SavedExtractedRecord[] {
+  if (!isBrowser) return [];
+  try {
+    const raw = localStorage.getItem(EXTRACTED_DOCS_KEY);
+    if (!raw) return [];
+    return JSON.parse(raw);
+  } catch (err) {
+    console.error("Error reading extracted docs from localStorage:", err);
+    return [];
+  }
+}
+
+export function saveExtractedDoc(record: SavedExtractedRecord): SavedExtractedRecord[] {
+  if (!isBrowser) return [record];
+  try {
+    const current = getSavedExtractedDocs();
+    // Prepend or replace if exists
+    const updated = [record, ...current.filter((d) => d.id !== record.id)];
+    localStorage.setItem(EXTRACTED_DOCS_KEY, JSON.stringify(updated));
+    return updated;
+  } catch (err) {
+    console.error("Error saving extracted doc to localStorage:", err);
+    return [];
+  }
+}
+
+export function deleteExtractedDoc(id: string): SavedExtractedRecord[] {
+  if (!isBrowser) return [];
+  try {
+    const current = getSavedExtractedDocs();
+    const updated = current.filter((d) => d.id !== id);
+    localStorage.setItem(EXTRACTED_DOCS_KEY, JSON.stringify(updated));
+    return updated;
+  } catch (err) {
+    console.error("Error deleting extracted doc from localStorage:", err);
+    return [];
+  }
+}
+
 // ============ RESET DEMO DATA ============
 export function resetAllToDemo(): void {
   if (!isBrowser) return;
@@ -110,6 +151,7 @@ export function resetAllToDemo(): void {
     localStorage.setItem(PROFILE_KEY, JSON.stringify(DEMO_PROFILE));
     localStorage.setItem(MEDICATIONS_KEY, JSON.stringify(INITIAL_MEDICATIONS));
     localStorage.setItem(CHECKINS_KEY, JSON.stringify(INITIAL_CHECKINS));
+    localStorage.removeItem(EXTRACTED_DOCS_KEY);
   } catch (err) {
     console.error("Error resetting data:", err);
   }

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "CareBuddy | Your Modern Personal Health & Wellness Companion",
+  title: "MediMatrix | Scan. Tap. Know when to see a doctor.",
   description:
     "Empathetic health tracking, medication reminders, daily wellness scores, and AI-assisted health guidance.",
 };

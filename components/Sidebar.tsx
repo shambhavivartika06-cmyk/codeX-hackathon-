@@ -10,6 +10,7 @@ import {
   FileText,
   BookOpenCheck,
   UserCheck,
+  ScanText,
 } from "lucide-react";
 
 export interface NavItem {
@@ -21,10 +22,11 @@ export interface NavItem {
 
 export const NAV_ITEMS: NavItem[] = [
   { id: "dashboard", label: "Dashboard", icon: LayoutDashboard },
+  { id: "snap", label: "Snap & Structure", icon: ScanText, badge: "AI OCR" },
   { id: "checkin", label: "Daily Check-in", icon: CalendarCheck },
   { id: "medications", label: "Medications", icon: Pill },
   { id: "assistant", label: "AI Assistant", icon: BotMessageSquare, badge: "Gemini" },
-  { id: "symptoms", label: "Symptom Explorer", icon: Stethoscope },
+  // { id: "symptoms", label: "Symptom Explorer", icon: Stethoscope },
   { id: "summary", label: "Doctor Summary", icon: FileText },
   { id: "explainer", label: "Medical Explainer", icon: BookOpenCheck },
   { id: "profile", label: "Health Profile", icon: UserCheck },
@@ -93,13 +95,6 @@ export default function Sidebar({
         </nav>
 
         <div className="mt-auto pt-6 border-t border-slate-100">
-          <div className="bg-slate-50 rounded-xl p-3 border border-slate-200">
-            <p className="text-xs font-semibold text-slate-700">Hackathon Tip</p>
-            <p className="text-[11px] text-slate-500 mt-1 leading-relaxed">
-              CareBuddy stores all records securely in browser storage. Add your Gemini key in{" "}
-              <code className="text-brand-700 bg-brand-50 px-1 py-0.5 rounded">.env.local</code> to activate live AI.
-            </p>
-          </div>
         </div>
       </aside>
 

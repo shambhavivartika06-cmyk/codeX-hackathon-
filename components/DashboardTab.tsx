@@ -13,6 +13,7 @@ import {
   Activity,
   Smile,
   ShieldCheck,
+  ScanText,
 } from "lucide-react";
 import { UserProfile, WellnessCheckIn, Medication } from "@/lib/types";
 
@@ -73,12 +74,19 @@ export default function DashboardTab({
 
           <div className="flex flex-wrap items-center gap-3 mt-6">
             <button
+              onClick={() => setActiveTab("snap")}
+              className="inline-flex items-center gap-2 bg-white text-brand-700 hover:bg-brand-50 px-4 py-2.5 rounded-xl font-bold text-sm transition shadow-sm"
+            >
+              <ScanText className="w-4 h-4 text-brand-600" />
+              <span>Scan Medical Document</span>
+              <ArrowRight className="w-3.5 h-3.5" />
+            </button>
+            <button
               onClick={() => setActiveTab("checkin")}
-              className="inline-flex items-center gap-2 bg-white text-brand-700 hover:bg-brand-50 px-4 py-2.5 rounded-xl font-semibold text-sm transition shadow-sm"
+              className="inline-flex items-center gap-2 bg-white/20 hover:bg-white/30 text-white px-4 py-2.5 rounded-xl font-medium text-sm transition backdrop-blur-sm"
             >
               <Calendar className="w-4 h-4" />
               <span>Log Today&apos;s Check-in</span>
-              <ArrowRight className="w-3.5 h-3.5" />
             </button>
             <button
               onClick={() => setActiveTab("assistant")}
@@ -278,6 +286,26 @@ export default function DashboardTab({
             <p className="text-xs text-slate-500 mb-4">Fast access to preparation and AI features</p>
 
             <div className="grid grid-cols-2 gap-3">
+              {/* Highlighted Snap & Structure Full-Width Card */}
+              <button
+                onClick={() => setActiveTab("snap")}
+                className="p-3.5 rounded-xl border border-brand-200 bg-brand-50/50 hover:bg-brand-50 text-left transition group col-span-2 flex items-center justify-between"
+              >
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-brand-600 text-white flex items-center justify-center group-hover:scale-105 transition shadow-sm">
+                    <ScanText className="w-5 h-5" />
+                  </div>
+                  <div>
+                    <div className="flex items-center gap-1.5">
+                      <p className="text-sm font-bold text-slate-900">Snap &amp; Structure (OCR)</p>
+                      <span className="text-[10px] font-bold px-1.5 py-0.5 rounded bg-brand-200 text-brand-900">NEW</span>
+                    </div>
+                    <p className="text-xs text-slate-500">Scan prescriptions or lab reports into structured records</p>
+                  </div>
+                </div>
+                <ArrowRight className="w-4 h-4 text-brand-600 group-hover:translate-x-1 transition" />
+              </button>
+
               <button
                 onClick={() => setActiveTab("summary")}
                 className="p-3.5 rounded-xl border border-slate-200 hover:border-brand-300 hover:bg-brand-50/50 text-left transition group"

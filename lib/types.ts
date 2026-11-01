@@ -51,3 +51,48 @@ export interface SymptomInfo {
   whenToSeeDoctor: string[];
   redFlags: string[]; // Urgent emergency flags
 }
+
+// ============ SNAP & STRUCTURE TYPES ============
+export type ConfidenceLevel = "clear" | "ambiguous" | "missing";
+
+export interface ExtractedMedicationItem {
+  name: string;
+  dosage: string;
+  frequency: string;
+  instructions: string;
+  confidence: ConfidenceLevel;
+  confidenceNote?: string;
+}
+
+export interface ExtractedLabTestItem {
+  testName: string;
+  value: string;
+  unit: string;
+  referenceRange: string;
+  flag: "normal" | "abnormal" | "unclear";
+  confidence: ConfidenceLevel;
+  confidenceNote?: string;
+}
+
+export interface ExtractedDocumentData {
+  documentType: "prescription" | "lab_report" | "other";
+  facilityOrDoctor: string;
+  documentDate: string;
+  patientName: string;
+  medications?: ExtractedMedicationItem[];
+  labTests?: ExtractedLabTestItem[];
+  warningsOrNotes: string[];
+  rawTextSummary: string;
+  hasAmbiguities: boolean;
+}
+
+export interface SavedExtractedRecord {
+  id: string;
+  createdAt: string;
+  title: string;
+  documentType: "prescription" | "lab_report" | "other";
+  thumbnailUrl?: string;
+  data: ExtractedDocumentData;
+  addedToMedications?: boolean;
+  attachedToSummary?: boolean;
+}

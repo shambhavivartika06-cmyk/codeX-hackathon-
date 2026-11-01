@@ -1,6 +1,6 @@
-# 🩺 CareBuddy — Personal Healthcare & Wellness Companion
+# 🩺 MediMatrix — Personal Healthcare & Wellness Companion
 
-CareBuddy is a modern, full-stack healthcare companion web application designed as a reliable, beginner-friendly starter template for AI-assisted hackathons.
+MediMatrix is a modern, full-stack healthcare companion web application designed as a reliable, beginner-friendly application for AI-assisted hackathons.
 
 It gives users an intuitive workspace to log daily check-ins, calculate a transparent wellness index, track medication adherence, explore conservative symptom home-care guides, generate structured doctor visit briefs, and chat with an AI wellness assistant.
 

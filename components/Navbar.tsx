@@ -39,12 +39,12 @@ export default function Navbar({
             </div>
             <div>
               <div className="flex items-center gap-1.5">
-                <span className="font-bold text-lg text-slate-900 tracking-tight">CareBuddy</span>
+                <span className="font-bold text-lg text-slate-900 tracking-tight">MediMatrix</span>
                 <span className="text-[10px] uppercase font-semibold px-1.5 py-0.5 rounded bg-brand-50 text-brand-700 border border-brand-200">
                   Health
                 </span>
               </div>
-              <p className="text-[11px] text-slate-500 hidden sm:block">Personal Wellness Companion</p>
+              <p className="text-[11px] text-slate-500 hidden sm:block">Scan. Tap. Know when to see a doctor.</p>
             </div>
           </button>
         </div>
