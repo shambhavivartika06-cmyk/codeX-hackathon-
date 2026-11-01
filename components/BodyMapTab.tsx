@@ -26,49 +26,121 @@ interface BodyZone {
   path: string; // SVG path
 }
 
-// All coordinates fit inside a 160 × 380 viewBox
+// All coordinates fit inside a 200 × 480 viewBox.
+// Anatomical orientation: observer's left is patient's right; observer's right is patient's left.
 const BODY_ZONES: BodyZone[] = [
   {
     id: "head",
     label: "Head",
-    path: "M 55,10 Q 80,0 105,10 Q 122,25 118,52 Q 110,72 80,74 Q 50,72 42,52 Q 38,25 55,10 Z",
+    path: "M 82,14 C 82,8 118,8 118,14 C 127,24 126,50 117,60 C 109,66 91,66 83,60 C 74,50 73,24 82,14 Z",
   },
   {
     id: "throat",
     label: "Throat",
-    path: "M 68,74 L 92,74 L 96,95 L 64,95 Z",
+    path: "M 89,66 L 111,66 L 113,84 L 87,84 Z",
   },
   {
     id: "chest",
     label: "Chest",
-    path: "M 42,95 L 118,95 L 114,165 L 46,165 Z",
+    path: "M 87,86 L 113,86 L 126,104 L 124,136 L 76,136 L 74,104 Z",
   },
   {
-    id: "stomach",
-    label: "Stomach",
-    path: "M 46,165 L 114,165 L 110,215 L 50,215 Z",
+    id: "upper-abdomen",
+    label: "Upper Abdomen",
+    path: "M 76,138 L 124,138 L 122,174 L 78,174 Z",
   },
   {
-    id: "left-arm",
-    label: "Left Arm",
-    // User's left arm = right side of SVG
-    path: "M 114,95 L 138,100 L 148,190 L 124,190 L 118,110 Z",
+    id: "lower-abdomen",
+    label: "Lower Abdomen",
+    path: "M 78,176 L 122,176 L 126,196 L 122,216 L 100,216 L 78,216 L 74,196 Z",
+  },
+  // Shoulders
+  {
+    id: "right-shoulder",
+    label: "Right Shoulder",
+    path: "M 85,86 C 73,86 58,92 48,102 L 53,118 L 73,104 Z",
   },
   {
-    id: "right-arm",
-    label: "Right Arm",
-    // User's right arm = left side of SVG
-    path: "M 46,95 L 22,100 L 12,190 L 36,190 L 42,110 Z",
+    id: "left-shoulder",
+    label: "Left Shoulder",
+    path: "M 115,86 C 127,86 142,92 152,102 L 147,118 L 127,104 Z",
+  },
+  // Arms: Upper
+  {
+    id: "right-upper-arm",
+    label: "Right Upper Arm",
+    path: "M 49,104 L 54,119 L 52,166 L 34,168 Z",
   },
   {
-    id: "left-leg",
-    label: "Left Leg",
-    path: "M 80,215 L 112,215 L 116,370 L 84,370 Z",
+    id: "left-upper-arm",
+    label: "Left Upper Arm",
+    path: "M 151,104 L 166,168 L 148,166 L 146,119 Z",
+  },
+  // Arms: Forearm
+  {
+    id: "right-forearm",
+    label: "Right Forearm",
+    path: "M 34,170 L 52,168 L 39,216 L 23,218 Z",
   },
   {
-    id: "right-leg",
-    label: "Right Leg",
-    path: "M 48,215 L 80,215 L 76,370 L 44,370 Z",
+    id: "left-forearm",
+    label: "Left Forearm",
+    path: "M 166,170 L 177,218 L 161,216 L 148,168 Z",
+  },
+  // Hands
+  {
+    id: "right-hand",
+    label: "Right Hand",
+    path: "M 23,220 L 39,218 L 37,236 C 36,246 29,248 24,248 C 19,248 16,243 17,235 Z",
+  },
+  {
+    id: "left-hand",
+    label: "Left Hand",
+    path: "M 161,218 L 177,220 L 183,235 C 184,243 181,248 176,248 C 171,248 164,246 163,236 Z",
+  },
+  // Thighs
+  {
+    id: "right-thigh",
+    label: "Right Thigh",
+    path: "M 76,218 L 98,218 L 97,296 L 70,296 Z",
+  },
+  {
+    id: "left-thigh",
+    label: "Left Thigh",
+    path: "M 102,218 L 124,218 L 130,296 L 103,296 Z",
+  },
+  // Knees
+  {
+    id: "right-knee",
+    label: "Right Knee",
+    path: "M 70,298 L 97,298 L 96,326 L 71,326 Z",
+  },
+  {
+    id: "left-knee",
+    label: "Left Knee",
+    path: "M 103,298 L 130,298 L 129,326 L 104,326 Z",
+  },
+  // Lower Legs
+  {
+    id: "right-lower-leg",
+    label: "Right Lower Leg",
+    path: "M 71,328 L 96,328 L 94,434 L 74,434 Z",
+  },
+  {
+    id: "left-lower-leg",
+    label: "Left Lower Leg",
+    path: "M 104,328 L 129,328 L 126,434 L 106,434 Z",
+  },
+  // Feet
+  {
+    id: "right-foot",
+    label: "Right Foot",
+    path: "M 74,436 L 94,436 L 95,456 C 95,465 88,468 78,468 C 67,468 62,462 62,454 C 62,446 68,439 74,436 Z",
+  },
+  {
+    id: "left-foot",
+    label: "Left Foot",
+    path: "M 106,436 L 126,436 C 132,439 138,446 138,454 C 138,462 133,468 122,468 C 112,468 105,465 105,456 Z",
   },
 ];
 
@@ -243,8 +315,8 @@ export default function BodyMapTab() {
           </p>
 
           <svg
-            viewBox="0 0 160 380"
-            className="w-48 sm:w-56"
+            viewBox="0 0 200 480"
+            className="w-full max-w-[220px] max-h-[70vh] h-auto select-none"
             aria-label="Human body map"
           >
             {BODY_ZONES.map((zone) => {
@@ -284,7 +356,13 @@ export default function BodyMapTab() {
             })}
           </svg>
 
-          <p className="mt-4 text-xs text-slate-500 min-h-[1.25rem]">
+          {/* Orientation guide: viewer's left is user's right side, viewer's right is user's left side */}
+          <div className="w-full max-w-[220px] flex justify-between px-2 mt-2 text-[11px] font-medium text-slate-400 select-none">
+            <span>Your right</span>
+            <span>Your left</span>
+          </div>
+
+          <p className="mt-3 text-xs text-slate-500 min-h-[1.25rem]">
             {hoveredZone
               ? BODY_ZONES.find((z) => z.id === hoveredZone)?.label
               : selectedLabel
